@@ -8,13 +8,9 @@ import os
 from bs4 import BeautifulSoup
 from selenium import webdriver
 
-
-##################### EDIT THESE ###############################
 USERNAME = os.getenv("APP_USERNAME")
 PASSWORD = os.environ.get("APP_PASSWORD")
 USER_AGENT = os.environ.get("APP_USER_AGENT") or "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36"
-##################### EDIT THESE ###############################
-
 
 def xpath_soup(element):
     """find the xpath of a given soup object"""
