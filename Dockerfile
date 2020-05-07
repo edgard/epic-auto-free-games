@@ -1,24 +1,24 @@
-FROM python:3-alpine
+FROM debian:stable-slim
 
-# update apk repo
-RUN apk update
+# update apt db
+RUN apt-get update
 
-# install chromedriver
-RUN apk add chromium chromium-chromedriver
+# install chromium/driver
+RUN apt-get install -y --no-install-recommends chromium chromium-driver
 
-# upgrade pip
-RUN pip install --upgrade pip
-
-# install app deps
-RUN apk add build-base
-RUN apk add libxml2-dev libxslt-dev
-RUN pip install selenium bs4 lxml
+# install selenium and deps
+RUN apt-get install -y --no-install-recommends python3 python3-bs4 python3-lxml python3-selenium
 
 # copy script
 COPY free_games.py /usr/src/app/
 
 # switch to workdir
 WORKDIR /usr/src/app
+
+# cleanup
+RUN apt-get clean autoclean \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 # run app
 ENTRYPOINT ["./free_games.py"]
